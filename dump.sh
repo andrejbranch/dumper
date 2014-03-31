@@ -29,14 +29,13 @@ do
     n=$(($i + $rowsPerFile))
     dumpfile=$filePath"/"$database"_chunk_"$chunk".sql"
 
-    echo $dumpfile
     printf "Creating $dumpfile \n"
 
     if [[ $chunk -eq 1 ]]
         then
-            mysqldump -u $username -p$password -h $hostname --where "1 LIMIT $i, $n" $database $table > $dumpfile
+            mysqldump -u $username -p$password -h $hostname --where "1 LIMIT $i, $rowsPerFile" $database $table > $dumpfile
         else
-            mysqldump -u $username -p$password -h $hostname --skip-add-locks --no-create-info --where "1 LIMIT $i, $n" $database $table > $dumpfile
+            mysqldump -u $username -p$password -h $hostname --skip-add-locks --no-create-info --where "1 LIMIT $i, $rowsPerFile" $database $table > $dumpfile
     fi
 
     i=$n
