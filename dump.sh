@@ -15,9 +15,7 @@ count=$(mysql -u $username -p$password -h $hostname -e "SELECT COUNT(*) FROM $da
 echo "Currently this table has a total of $count rows"
 read -p "How many rows per file would you like to have : " rowsPerFile
 
-rowsPerFile=200
-
-numFiles=$(python -c "import math; print math.ceil(45099534 / float(5000000))")
+numFiles=$(python -c "import math; print math.ceil($rowsPerFile / float($count))")
 
 echo "This will result in $numFiles files"
 
